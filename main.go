@@ -38,7 +38,6 @@ func binaryToDecimal(binary int) (int, error) {
 
 	for i := 0; i < 8; i++ {
 		digit = int(math.Round(math.Mod(float64(binary)/power, 1) * 10))
-		// fmt.Println("Digit: ", digit)
 		if digit != 0 && digit != 1 {
 			return 0, fmt.Errorf(ERROR_NUMBER_NOT_0_OR_1)
 		}
@@ -66,8 +65,3 @@ func IntPow(x int, y int) int {
 
 	return sum
 }
-
-// Test case
-// 45813275
-// 123
-// 10111011
