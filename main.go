@@ -9,34 +9,44 @@ func main() {
 	println("Binary to Decimal App")
 	println("Enter Binary 1-8 length")
 	var input int
-	var decimal int
 	_, err := fmt.Scanln(&input)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 		return
 	}
-	if (input / 100_000_000) != 0 {
-		fmt.Println("Error: input over 8 length")
+
+	decimal, err := binaryToDecimal(input)
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
-
 	fmt.Println("=================")
+
+	fmt.Println("Binary: ", input)
+	fmt.Println("Decimal: ", decimal)	
+}
+
+func binaryToDecimal(binary int) (int, error) {
+	
+	if (binary / 100_000_000) != 0 {
+		return 0, fmt.Errorf(ERROR_NUMBER_OVER_8_LENGTH)
+	}
+
+	var decimal int = 0
 	var digit int = 0
 	var power float64 = 10
 
 	for i := 0; i < 8; i++ {
-		digit = int(math.Round(math.Mod(float64(input)/power, 1) * 10))
+		digit = int(math.Round(math.Mod(float64(binary)/power, 1) * 10))
 		// fmt.Println("Digit: ", digit)
 		if digit != 0 && digit != 1 {
-			fmt.Println("Error: value must contains only 0 or 1")
-			return
+			return 0, fmt.Errorf(ERROR_NUMBER_NOT_0_OR_1)
 		}
 		decimal += int(digit) * IntPow(2, i)
 		power *= 10
 	}
 
-	fmt.Println("Binary: ", input)
-	fmt.Println("Decimal: ", decimal)
+	return decimal, nil
 }
 
 func IntPow(x int, y int) int {
