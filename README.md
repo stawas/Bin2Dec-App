@@ -1,6 +1,6 @@
 # Binary to Decimal App
 
-- with out array
+- without array
 
 # Run tests
 
